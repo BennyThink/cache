@@ -168,6 +168,7 @@ func CachePage(store persistence.CacheStore, expire time.Duration, handle gin.Ha
 				store.Delete(key)
 			}
 		} else {
+			c.Writer.Header().Set("Redis-Cache", "Hit")
 			c.Writer.WriteHeader(cache.Status)
 			for k, vals := range cache.Header {
 				for _, v := range vals {
